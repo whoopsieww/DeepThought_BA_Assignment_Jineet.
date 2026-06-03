@@ -68,11 +68,3 @@ To ensure the final dataset contains 1,000 genuine, high-conviction targets, the
 *   **Post-AI Moat Screen:** ~3,000 companies (Traders & commodity shops removed)
 *   **Post-Data Enrichment & Audit:** ~1,250 companies (Decision makers found, edge cases resolved)
 *   **Final Export List:** **1,000 Gold-Standard Targets**
-
----
-
-## 📊 Expected Sourcing Funnel Yield
-*   **Initial Database Pull:** ~15,000 companies (Raw NIC & Revenue match)
-*   **Post-AI Moat Screen:** ~3,000 companies (Traders & commodity shops removed)
-*   **Post-Data Enrichment & Audit:** ~1,250 companies (Decision makers found, edge cases resolved)
-*   **Final Export List:** **1,000 Gold-Standard Targets**
