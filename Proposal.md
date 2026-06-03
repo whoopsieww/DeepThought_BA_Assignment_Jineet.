@@ -4,33 +4,31 @@ This proposal outlines the exact technical, operational, and mathematical workfl
 
 ---
 
-## ⚡ The 3-Gate Verification & Filtering Criteria
+## ⚡ Concrete Filtering Criteria & Data Schema (Columns A–AE)
 
-To ensure the final dataset contains 1,000 genuine, high-conviction targets, the automated pipeline applies three strict operational, location, and financial gates. A company must clear all three gates to remain on the list.
+To ensure absolute data discipline, a company is only qualified if it satisfies all of our strict multi-gate criteria. Every company row in the master tracker must hold complete data points across these core variables:
 
-### 1. The Size Gate (Financial Boundaries)
-*   **The Criteria:** Annual Operational Revenue must sit strictly between ₹50 Crore and ₹500 Crore.
-*   **How We Filter It:** We run a python filter on the revenue column extracted from the MCA registry data:
-    $$\text{₹50 Crore} \le \text{Operating Revenue} \le \text{₹500 Crore}$$
-*   **Why It Works:** This mathematical condition automatically filters out massive corporate giants (like Kalyani Technoforge at ₹2,520Cr) that are handled by global investment banks, while simultaneously dropping small, low-tech local job shops earning under ₹50 Crore.
+### 1. The Financial Scale Criteria (The Size Gate)
+*   **Operating Revenue Boundary:** Annual turnover must sit strictly between ₹50 Crore and ₹500 Crore ($\text{₹}50\text{Cr} \le \text{Revenue} \le \text{₹}500\text{Cr}$). 
+*   **Capitalization Floor:** Authorized and Paid-up Capital must be greater than or equal to ₹5 Crore ($\text{Paid-up Capital} \ge \text{₹}5\text{Cr}$).
+*   **Execution Logic:** Code filters automatically drop small job shops with erratic working capital cycles under ₹50Cr, alongside heavily institutionalized entities above ₹500Cr.
 
-### 2. The Geography Gate (Industrial Cluster Mapping)
-*   **The Criteria:** Companies must be physically operating inside high-density manufacturing clusters (e.g., Pune, Chennai, Ahmedabad, Delhi-NCR).
-*   **How We Filter It:** The pipeline runs a string-matching pattern search on the registered plant location/address columns to verify matching pin codes or industrial zones (like Chakan, Pimpri, Sanand, or Sriperumbudur).
-*   **Why It Works:** It locks our data to areas that benefit from shared logistics routes, Tier-1 OEM ecosystems, and specialized technical labor, making their operating structures highly comparable.
+### 2. The Geographic Location Criteria (The Cluster Gate)
+*   **Target Clusters:** Plant operations must reside inside major Indian automotive and heavy engineering manufacturing hubs: Pune MIDC (Chakan, Bhosari, Pimpri), Chennai (Sriperumbudur, Oragadam), Ahmedabad (Sanand, Changodar), or Delhi-NCR (Manesar, Faridabad).
+*   **Execution Logic:** String-pattern matching filters look for localized pin codes and address strings. This ensures we leverage cluster economics—targeting companies that share logistics networks, raw material alloy suppliers, and specialized technical labor.
 
-### 3. The Moat Gate (Structural Business Model Check)
-*   **The Criteria:** Must be a core asset-heavy manufacturer possessing a high technical entry barrier (precision engineering).
-*   **How We Filter It:** We feed the website text collected by our scraper into the Claude/Gemini API to perform a semantic analysis based on a strict prompt:
-    *   *Pure Traders/Distributors/Resellers* ➡️ **REJECT (Flagged as Low-Moat)**
-    *   *Custom-Engineered Precision Part Makers (Gears, Springs, Seals, Metrology)* ➡️ **PASS**
-*   **Why It Works:** This is our absolute quality gate. It instantly drops generic commercial trading firms and low-tech fabrication garages, ensuring 100% of the targets hold true pricing power.
+### 3. The Structural Business Model Criteria (The Moat Gate)
+*   **Asset Footprint (C1 Metric):** Must feature heavy, physical operational assets (e.g., CNC machining centers, high-tonnage forging lines, heat treatment blocks).
+*   **Differentiation Layer (C3 Metric):** Must manufacture custom-engineered precision items (e.g., planetary gearboxes, sub-micron metrology probes, mechanical seals, high-fatigue springs) rather than basic commodities.
+*   **Execution Logic:** The web-scraping script extracts text layers from company product pages and passes them to the Claude/Gemini API to execute a binary check:
+    *   *Pure Trading / Reselling / Basic Fabrication Garages* ➡️ **REJECT (Flagged as Low-Moat)**
+    *   *Custom Engineering / Specialized Tooling / B2B OEM Tier-1 Supply* ➡️ **PASS**
 
 ---
 
 ## 📅 Detailed Weekly Execution Plan
 
-### 🛠️ Week 1: Universe Ingestion & Financial Filtering (Gate 1 & 2)
+### 🛠️ Week 1: Universe Ingestion & Financial Filtering (Gates 1 & 2)
 *   **Objective:** Extract the broad universe of corporate entities sitting within target manufacturing sectors.
 *   **Data Sources:** Ministry of Corporate Affairs (MCA) registries, Registrar of Companies (ROC) directories, and corporate data aggregators (Tofler, Zauba Corp, Probe42).
 *   **Technical Actions:** 
